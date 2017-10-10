@@ -16,7 +16,9 @@ end
 def setIfNotSet(x, y)
   if !isSet(x, y)
     addX(x, y)
+    return true
   end
+  return false
 end
 
 def getNeighbours(x, y)
@@ -31,6 +33,16 @@ def getNeighbours(x, y)
   end
   if y < $canvas.length-1
     setIfNotSet(x, y+1)
+  end
+end
+
+def start(x, y)
+  puts "STARTING:"
+  puts $canvas
+  puts ""
+
+  if setIfNotSet(x, y)
+    getNeighbours(x, y)
   end
 end
 
@@ -56,4 +68,4 @@ for i in 1..canvas_lines.length
   end
 end
 
-getNeighbours(cursor[0], cursor[1])
+start(cursor[0], cursor[1])
