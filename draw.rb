@@ -34,16 +34,26 @@ def getNeighbours(x, y)
   end
 end
 
-canvas = ""
-f = File.open("canvas2", "r") do |f|
-  canvas_raw = f.readlines()
-
-  canvas_width = canvas_raw[0].length
-  for i in 1..canvas_raw.length
-    if (canvas_raw[i+1] == nil || canvas_raw[i+1].empty?) && canvas_raw[i] == canvas_raw[0]
-      break
-    end
-    $canvas.push(canvas_raw[i][1..canvas_width-3])
-  end
-  getNeighbours(2, 2)
+cursor = []
+until ARGV.empty? do
+  cursor.push(ARGV.shift.to_i)
 end
+
+canvas_raw = ""
+while a = gets
+  canvas_raw += a
+end
+
+canvas_lines = canvas_raw.split("\n")
+
+canvas_width = canvas_lines[0].length
+for i in 1..canvas_lines.length
+  if (canvas_lines[i+1] == nil || canvas_lines[i+1].empty?) && canvas_lines[i] == canvas_lines[0]
+    break
+  end
+  if canvas_lines[i] != nil
+    $canvas.push(canvas_lines[i][1..canvas_width-3])
+  end
+end
+
+getNeighbours(cursor[0], cursor[1])
